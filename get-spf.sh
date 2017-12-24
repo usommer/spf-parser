@@ -57,3 +57,4 @@ echo "$results5" |egrep "^a:" |awk -F":" '{print $2}' |xargs dig +short |awk -F'
 
 # remove duplicate entries and write postfix mapsfile
 getspf |sort |uniq | awk '{print $1"  permit"}' > postscreen-whitelists-cidr
+cat postscreen-whitelists-cidr
