@@ -11,8 +11,6 @@
 # uwe@usommer.de
 # 12/2017
 
-file="domain-file"
-
 ## get mx records and domain a records
 ## filter for valid ip4 addresses:
 ## awk -F'.' 'NF==4 && $1 > 0 && $1<256 && $2<256 && $3<256 && $4<256 && !/\.\./'
@@ -20,6 +18,8 @@ file="domain-file"
 # main function
 getspf()
 {
+## input domainlist
+file="domain-file"
 # get domain a records
 domain=$(xargs dig +short < "$file" |awk -F'.' 'NF==4 && $1 > 0 && $1<256 && $2<256 && $3<256 && $4<256 && !/\.\./')
 echo "$domain"
