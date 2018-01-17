@@ -19,7 +19,14 @@
 getspf()
 {
 ## input domainlist
-file="domain-file"
+file=$1
+if [ "$#" -le "0" ]; then
+	echo "Domainlist or domain argument required"
+fi
+if [[ ! -f $1 ]]; then
+	echo $1 > /tmp/domain
+	file=/tmp/domain 
+fi
 # get domain a records
 domain=$(xargs dig +short < "$file" |awk -F'.' 'NF==4 && $1 > 0 && $1<256 && $2<256 && $3<256 && $4<256 && !/\.\./')
 echo "$domain"
