@@ -22,6 +22,7 @@ getspf()
 file=$1
 if [ "$#" -le "0" ]; then
 	echo "Domainlist or domain argument required"
+	return 1
 fi
 if [[ ! -f $1 ]]; then
 	echo $1 > /tmp/domain
