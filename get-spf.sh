@@ -42,22 +42,22 @@ echo "$results1" |grep -e "^ip4:" | awk -F":" '{print $2}' |sed s/\"//g
 echo "$results1" |grep -e "^a:" |awk -F":" '{print $2}' |xargs dig +short |awk -F'.' 'NF==4 && $1 > 0 && $1<256 && $2<256 && $3<256 && $4<256 && !/\.\./'
 
 # include queries
-results2=$(echo "$results1" |grep -e "^include:" |awk -F":" '{print $2}' |xargs dig txt +short |grep "v=spf" | awk '{for(i=1;i<=NF;i++){if ($i ~ /^ip4:|include:|a:/) {print $i}}}' | sed s/\"//g ) 
+results2=$(echo "$results1" |grep -e "^include:" |awk -F":" '{print $2}' |xargs dig txt +short |grep "v=spf" | awk '{for(i=1;i<=NF;i++){if ($i ~ /^ip4:|include:|a:/) {print $i}}}' |sed 's/\"\ \"//g'| sed s/\"//g ) 
 echo "$results2" |grep -e "^ip4:" | awk -F":" '{print $2}' |sed s/\"//g
 echo "$results2" |grep -e "^a:" |awk -F":" '{print $2}' |xargs dig +short |awk -F'.' 'NF==4 && $1 > 0 && $1<256 && $2<256 && $3<256 && $4<256 && !/\.\./'
 
 # level2 include queries
-results3=$(echo "$results2" |grep -e "^include:" |awk -F":" '{print $2}' |xargs dig txt +short |grep "v=spf" | awk '{for(i=1;i<=NF;i++){if ($i ~ /^ip4:|include:|a:/) {print $i}}}' | sed s/\"//g) 
+results3=$(echo "$results2" |grep -e "^include:" |awk -F":" '{print $2}' |xargs dig txt +short |grep "v=spf" | awk '{for(i=1;i<=NF;i++){if ($i ~ /^ip4:|include:|a:/) {print $i}}}' |sed 's/\"\ \"//g'| sed s/\"//g) 
 echo "$results3" |grep -e "^ip4:" | awk -F":" '{print $2}' |sed s/\"//g
 echo "$results3" |grep -e "^a:" |awk -F":" '{print $2}' |xargs dig +short |awk -F'.' 'NF==4 && $1 > 0 && $1<256 && $2<256 && $3<256 && $4<256 && !/\.\./'
 
 # level3 include queries
-results4=$(echo "$results3" |grep -e "^include:" |awk -F":" '{print $2}' |xargs dig txt +short |grep "v=spf" | awk '{for(i=1;i<=NF;i++){if ($i ~ /^ip4:|include:|a:/) {print $i}}}' | sed s/\"//g)
+results4=$(echo "$results3" |grep -e "^include:" |awk -F":" '{print $2}' |xargs dig txt +short |grep "v=spf" | awk '{for(i=1;i<=NF;i++){if ($i ~ /^ip4:|include:|a:/) {print $i}}}' |sed 's/\"\ \"//g'| sed s/\"//g)
 echo "$results4" |grep -e "^ip4:" | awk -F":" '{print $2}' |sed s/\"//g
 echo "$results4" |grep -e "^a:" |awk -F":" '{print $2}' |xargs dig +short |awk -F'.' 'NF==4 && $1 > 0 && $1<256 && $2<256 && $3<256 && $4<256 && !/\.\./'
 
 # level4 include queries
-results5=$(echo "$results4" |grep -e "^include:" |awk -F":" '{print $2}' |xargs dig txt +short |grep "v=spf" | awk '{for(i=1;i<=NF;i++){if ($i ~ /^ip4:|include:|a:/) {print $i}}}' | sed s/\"//g)
+results5=$(echo "$results4" |grep -e "^include:" |awk -F":" '{print $2}' |xargs dig txt +short |grep "v=spf" | awk '{for(i=1;i<=NF;i++){if ($i ~ /^ip4:|include:|a:/) {print $i}}}' |sed 's/\"\ \"//g'| sed s/\"//g)
 echo "$results5" |grep -e "^ip4:" | awk -F":" '{print $2}' |sed s/\"//g
 echo "$results5" |grep -e "^a:" |awk -F":" '{print $2}' |xargs dig +short |awk -F'.' 'NF==4 && $1 > 0 && $1<256 && $2<256 && $3<256 && $4<256 && !/\.\./'
 }
