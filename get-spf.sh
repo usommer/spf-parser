@@ -24,7 +24,7 @@ if [ "$#" -le "0" ]; then
 	echo "Domainlist or domain argument required"
 	return 1
 fi
-if [[ ! -f $1 ]]; then
+if [ ! -f $1 ]; then
 	echo $1 > /tmp/domain
 	file=/tmp/domain 
 fi
@@ -64,5 +64,5 @@ echo "$results5" |grep -e "^a:" |awk -F":" '{print $2}' |xargs dig +short |awk -
 
 
 # remove duplicate entries and write postfix mapsfile
-getspf |sort |uniq | awk '{print $1"  permit"}' > postscreen-whitelists-cidr
+getspf "$1" |sort |uniq | awk '{print $1"  permit"}' > postscreen-whitelists-cidr
 cat postscreen-whitelists-cidr
