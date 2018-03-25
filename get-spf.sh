@@ -46,6 +46,9 @@ query_dns(){
     xargs -r dig +short +nodnssec
 fi
 }
+validate() { #list only ipv4 addresses
+    awk -F'.' 'NF==4 && $1>0 && $1<256 && $2>=0 && $2<256 && $3>=0 && $3<256 && $4>=0'
+}
 ## main spf query part
 # get domain a records
 ip1(){
@@ -122,4 +125,4 @@ for a in $(seq 1 14); do
         "ip$a" 
 done
 }
-get_allips |sort -uV |grep -v "root-servers"
+get_allips |sort -uV |validate
