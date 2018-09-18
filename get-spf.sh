@@ -84,10 +84,13 @@ all_ips(){
 }
 ## remove invalid cidr ranges from cidr file
 cleanup() {
+if [ "$#" == "2" ]; then
+cidrfile=$2
 for i in $(postmap -s cidr:"$cidrfile" 2>&1 >/dev/null |grep warning |awk '{print $7}' |tr -d ":"|sort -r); do
  sed -i "$i d" "$cidrfile"
 # echo "line $i removed from $cidrfile"
 done
+fi
 }
 ###################################################################################################
 ## display all results sorted
